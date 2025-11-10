@@ -175,7 +175,7 @@ protected:
 				getKey(key, (ATOM)copyData->dwData);
 				tTJSVariant msg((const tjs_char *)copyData->lpData);
 				tTJSVariant *p[] = {&key, &msg};
-				obj->FuncCall(0, L"onMessageReceived", NULL, NULL, 2, p, obj);
+				obj->FuncCall(0, TJS_W("onMessageReceived"), NULL, NULL, 2, p, obj);
 			}
 			return true;
 		default:
@@ -207,7 +207,7 @@ protected:
 		tTJSVariant proc     = (tTVInteger)(tjs_intptr_t)MyReceiver;
 		tTJSVariant userdata = (tTVInteger)(tjs_intptr_t)objthis;
 		tTJSVariant *p[3] = {&mode, &proc, &userdata};
-		int ret = objthis->FuncCall(0, L"registerMessageReceiver", NULL, NULL, 3, p, objthis);
+		int ret = objthis->FuncCall(0, TJS_W("registerMessageReceiver"), NULL, NULL, 3, p, objthis);
 	}
 
 public:
@@ -411,17 +411,17 @@ NCB_GET_INSTANCE_HOOK(WindowMsg)
 
 // フックつきアタッチ
 NCB_ATTACH_CLASS_WITH_HOOK(WindowMsg, Window) {
-	Property(L"messageEnable", &WindowMsg::getMessageEnable, &WindowMsg::setMessageEnable);
-	Property(L"storeHWND", &WindowMsg::getStoreKey, &WindowMsg::setStoreKey);
+	Property(TJS_W("messageEnable"), &WindowMsg::getMessageEnable, &WindowMsg::setMessageEnable);
+	Property(TJS_W("storeHWND"), &WindowMsg::getStoreKey, &WindowMsg::setStoreKey);
 	RawCallback("registerUserMessageReceiver", &WindowMsg::registerUserMessageReceiver, 0);
-	Method(L"sendUserMessage", &WindowMsg::sendUserMessage);
-	Method(L"sendMessage", &WindowMsg::sendMessage);
+	Method(TJS_W("sendUserMessage"), &WindowMsg::sendUserMessage);
+	Method(TJS_W("sendMessage"), &WindowMsg::sendMessage);
 
-	Method(L"sendUserMessageDirect", &WindowMsg::sendUserMessageDirect);
-	Method(L"sendMessageDirect", &WindowMsg::sendMessageDirect);
+	Method(TJS_W("sendUserMessageDirect"), &WindowMsg::sendUserMessageDirect);
+	Method(TJS_W("sendMessageDirect"), &WindowMsg::sendMessageDirect);
 
-	Method(L"postUserMessage", &WindowMsg::postUserMessage);
-	Method(L"postUserMessageDirect", &WindowMsg::postUserMessageDirect);
+	Method(TJS_W("postUserMessage"), &WindowMsg::postUserMessage);
+	Method(TJS_W("postUserMessageDirect"), &WindowMsg::postUserMessageDirect);
 }
 
 /**
